@@ -11,9 +11,13 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+<body>
     <header>
       <nav id="menu-navegacao">
+
+         <input type="checkbox" id="menu-toggle">
+         <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
          <a href="#modelagem">Modelagem</a>
          <a href="#gestao">Gestão</a>
          <a href="#kanban">Kanban</a>
@@ -50,19 +54,22 @@
             </p>
         </section>
 
-        <h2 id="gestao">
+        
+      <h3 id="gestao">
          Gestão de Projetos
-        </h2>
-        <p id="materia">
-         Matéria do 4º semestre de Sistemas de Informação.
-        </p>
+      </h3>
+      <p id="materia">
+         Matéria do quarto semestre de Sistemas de Informação.
+      </p>
 
-        <nav>
-            <a class="button" href="#">Cronograma</a>
-            <a class="button" href="#">Fluxograma</a>
-        </nav>
+      <nav>
+         <a class="button" href="sites/Documentacao Gestao Aether.pdf" target="_blank">Documentação</a>
+         <a class="button" href="imagens/fluxograma.png" target="_blank">Fluxograma</a>
+         <a class="button" href="sites/Cronograma_AETHER - Sheet1.pdf" target="_blank">Cronograma</a>
+      </nav>
+        
 
-        <div class="atas-reuniao">
+      <div class="atas-reuniao">
             <img src="imagens/primeira-reuniao.jpeg"  alt="Foto da primeira reunião do grupo" class="borda-foto">
             <div class="texto-ata">
                <p class="texto-negrito">
@@ -122,6 +129,17 @@
             </div>
         </div>
 
+        <div class="atas-reuniao">
+            <img src="imagens/reuniao-site.jpeg" alt="Reunião feita para mostrar o site ao professor orientador" class="borda-foto-deitada">
+            <div class="texto-ata">
+               <p class="texto-negrito">
+                  28/10/2025
+               </p>
+               <p>
+                  Reunião feita para mostrar o site do projeto ao professor orientador e alinhar os últimos detalhes.
+            </div>
+        </div>
+
         <section id="kanban">
             <h2>
                Kanban do Projeto
@@ -131,7 +149,7 @@
             </p>
             <img src="imagens/metodo-kanban.jpeg" alt="Método Kanban com Microsoft Planner">
             <p id="texto-abaixo-da-foto">
-               O Kanban ajudou a priorizar tarefas, dividir responsabilidades e visualizar o status (A fazer / Em progresso / Em revisão / COncluído). Foi fundamental paraa manter sincronia entre os membros.
+               O Kanban ajudou a priorizar tarefas, dividir responsabilidades e visualizar o status (A fazer / Em progresso / Em revisão / COncluído). Foi fundamental para manter sincronia entre os membros.
             </p>
         </section>
 
@@ -244,8 +262,8 @@
             <p>
                Abaixo, os materiais desenvolvidos ao longo do Projeto Integrador.
             </p>
-            <a style="font-weight: bold; margin-bottom: 20px;" class="button" href="https://aether-bibibrigadeiros.netlify.app/" target="_blank">Acessar Artigo</a>
-            <a style="font-weight: bold;" class="button" href="https://aether-bibibrigadeiros.netlify.app/" target="_blank">Acessar Banner</a>
+            <a style="font-weight: bold; margin-bottom: 20px;" class="button" href="artigo/Artigo_AETHER (Segundo Semestre) (1).pdf" target="_blank">Acessar Artigo</a>
+            <a style="font-weight: bold;" class="button" href="#" target="_blank">Acessar Banner</a>
         </section>
         
       </article>
