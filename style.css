@@ -531,8 +531,9 @@ footer {
 
 @media (min-width: 1024px) {
    .lista-integrantes-grid {
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
       justify-items: center;
       align-items: start;
    }
@@ -543,7 +544,23 @@ footer {
    }
 
    .grupo {
-      max-width: 105px;
+      width: 100%;
+      max-width: 140px;
+      text-align: center;
+   }
+
+   .texto-ao-lado h3 {
+      font-size: 11px;
+      margin-top: 10px;
+      margin-bottom: 2px;
+      min-height: 32px;
+   }
+
+   .texto-ao-lado p {
+      font-size: 10px;
+      color: black;
+      text-align: center;
+      margin: 0;
    }
 }
 
