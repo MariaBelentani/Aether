@@ -468,7 +468,7 @@ footer {
       gap: 20px 10px;
    }
 
-   .lista-integrantes-grid .grupo:nth-child(7) {
+   .lista-integrantes-grid .grupo:nth-child(5) {
       grid-column: 1 / span 2;
       justify-self: center;
       max-width: 50%;
@@ -536,7 +536,7 @@ footer {
       gap: 20px 10px;
    }
 
-   .lista-integrantes-grid .grupo:nth-child(7) {
+   .lista-integrantes-grid .grupo:nth-child(5) {
       grid-column: 1 / span 2;
       justify-self: center;
       max-width: 50%;
@@ -644,4 +644,128 @@ footer {
 .terceiro-termo {
    margin-top: 72px;
    margin-left: 30px;
+}
+
+/* =========================
+   QUARTO TERMO
+========================= */
+
+#quarto-termo > h2 {
+   margin-top: 72px;
+   margin-left: 30px;
+}
+
+/* Mesmo espaçamento do terceiro termo */
+.secao-termo h3 {
+   color: var(--cor2);
+   margin-top: 72px;
+   margin-left: 30px;
+   font-size: 1.2em;
+   text-align: left;
+}
+
+#q4-reestruturacao h3 {
+   margin-top: 10px;
+}
+
+#q4-conteudos {
+   margin-top: 42px;
+}
+
+.secao-termo p {
+   font-weight: normal;
+   text-align: justify;
+   margin-left: 30px;
+   margin-top: 20px;
+}
+
+.secao-termo p.legenda {
+   font-size: 13px;
+   text-align: center;
+   margin-top: 10px;
+}
+
+.secao-termo img {
+   max-width: 85%;
+   height: auto;
+   display: block;
+   margin: 30px auto 8px auto;
+   border: 14px solid white;
+   border-radius: 10px;
+   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Tabelas (classificação de problemas e cenários de teste) */
+
+.tabela-wrapper {
+   overflow-x: auto;
+   margin: 20px 30px 0 30px;
+}
+
+.tabela-aether {
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 13px;
+   line-height: 1.5;
+}
+
+.tabela-aether caption {
+   caption-side: top;
+   text-align: left;
+   font-weight: 600;
+   color: var(--cor2);
+   padding-bottom: 8px;
+}
+
+.tabela-aether th,
+.tabela-aether td {
+   padding: 8px 10px;
+   border: 1px solid #d5dde5;
+   text-align: left;
+   vertical-align: top;
+}
+
+.tabela-aether th {
+   background-color: var(--cor2);
+   color: white;
+   font-weight: 600;
+}
+
+.tabela-aether tbody tr:nth-child(even) {
+   background-color: #f4f8fb;
+}
+
+.tabela-aether td:first-child {
+   font-weight: 700;
+   white-space: nowrap;
+}
+
+.selo {
+   display: inline-block;
+   padding: 2px 10px;
+   border-radius: 999px;
+   font-size: 12px;
+   font-weight: 600;
+   white-space: nowrap;
+}
+
+.selo.ok { background-color: #dcf3e3; color: #14692e; }
+.selo.revisar { background-color: #fff0cc; color: #8a5a00; }
+.selo.critico { background-color: #fbd9d9; color: #9b1c1c; }
+.selo.alto { background-color: #fde3cf; color: #a24300; }
+.selo.medio { background-color: #fff0cc; color: #8a5a00; }
+.selo.baixo { background-color: #e3ecf5; color: #2a4a6b; }
+
+@media (max-width: 768px) {
+   .secao-termo {
+      scroll-margin-top: 50px;
+   }
+
+   .tabela-wrapper {
+      margin: 20px 10px 0 10px;
+   }
+
+   .tabela-aether {
+      font-size: 11px;
+   }
 }
