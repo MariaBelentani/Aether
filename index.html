@@ -19,8 +19,9 @@
          <label for="menu-toggle" class="menu-icon">&#9776;</label>
 
          <a href="#sobre-o-projeto">Sobre o projeto</a>
-         <a href="#segundo-termo">Segundo termo</a>
+         <a href="#quarto-termo">Quarto termo</a>
          <a href="#terceiro-termo">Terceiro termo</a>
+         <a href="#segundo-termo">Segundo termo</a>
       </nav>
     </header>
     <main>
@@ -29,8 +30,8 @@
          <h1>
            Olá!
          </h1>
-         <p>Nós somos os criadores do sistema <strong style="color: var(--cor2)">AETHER: Sistema
-            de Gerenciamento Empresarial Organizacional.</strong>
+         <p>Nós somos os criadores do sistema <strong style="color: var(--cor2)">AETHER: Validação
+            de Software em uma Confeitaria.</strong>
             Este site foi desenvolvido com o objetivo de apresentar, de forma integrada, todos os conteúdos produzidos ao longo do semestre pelos integrantes do projeto. Aqui, você encontrará a evolução do sistema AETHER, desde sua concepção até os resultados finais, refletindo o aprendizado e a colaboração de toda a equipe.
          </p>
       </section>
@@ -99,21 +100,205 @@
                      </p>
                   </div>
                </div>
-               <div class="grupo">
-                  <img src="imagens/guilherme.jpeg" alt="Foto do integrante Guilherme Laurenço" class="foto-redonda">
-                  <div class="texto-ao-lado">
-                     <h3>
-                        Guilherme Laurenço, 25
-                     </h3>
-                     <p>
-                        Sistemas de Informação
-                     </p>
-                  </div>
-               </div>
-               
             </div>
         </section>
         
+        <section id="quarto-termo">
+
+            <h2>
+               Quarto Termo: Reestruturação e Validação do Software
+            </h2>
+
+            <section class="secao-termo" id="q4-reestruturacao">
+               <h3>Reestruturação do Ambiente</h3>
+               <p>
+                  Nos semestres anteriores, o Aether foi desenvolvido com o auxílio da plataforma Lovable, mas nunca chegou a ser usado na rotina de um cliente real. Nesse intervalo, o banco de dados hospedado no Supabase foi pausado por inatividade, o que causou falhas de autenticação. Por isso, a equipe retirou o código da plataforma e montou uma estrutura própria: um novo projeto no Supabase com acesso compartilhado entre os integrantes, o código versionado em um repositório no GitHub e a aplicação publicada no Vercel.
+               </p>
+               <p>
+                  Após a publicação, o cadastro apresentou o erro <em>Failed to fetch</em>. A análise da aba Network do navegador mostrou que a aplicação ainda se comunicava com o projeto antigo por causa de um valor padrão gravado no código. A solução foi remover as credenciais do repositório e configurar as variáveis de ambiente no Vercel.
+               </p>
+            </section>
+
+            <section class="secao-termo" id="q4-modelagem">
+               <h3>Nova Modelagem de Banco de Dados</h3>
+               <p>
+                  O banco de dados foi reestruturado no novo projeto do Supabase. A modelagem passou a incluir as tabelas de autenticação e perfis (<em>auth_users</em>, <em>profiles</em> e <em>user_roles</em>), que sustentam o controle de acesso por perfil, além das tabelas de clientes, pedidos, produtos, matérias-primas, fichas técnicas, movimentações de estoque e itens do cardápio.
+               </p>
+               <img src="imagens/modelagem-4-semestre.png" alt="Diagrama entidade-relacionamento do AETHER no quarto semestre">
+               <p class="legenda">
+                  Diagrama entidade-relacionamento do AETHER no quarto semestre.
+               </p>
+            </section>
+
+            <section class="secao-termo" id="q4-codigo">
+               <h3>Análise do Código-Fonte e Problemas Identificados</h3>
+               <p>
+                  O Aether é uma Single Page Application em React e TypeScript, sem API própria: o Supabase gera a API a partir das tabelas e o navegador a acessa diretamente. Com isso, a proteção dos dados depende das políticas de Row Level Security (RLS). Os problemas encontrados foram classificados por criticidade, combinando o impacto de uma eventual exploração com a facilidade de ela ocorrer, com base na norma ISO/IEC 25010.
+               </p>
+               <div class="tabela-wrapper">
+                  <table class="tabela-aether">
+                     <caption>Tabela 01 – Classificação dos problemas identificados</caption>
+                     <thead>
+                        <tr><th>ID</th><th>Problema identificado</th><th>Criticidade</th><th>Situação</th></tr>
+                     </thead>
+                     <tbody>
+                        <tr><td>P01</td><td>Políticas RLS abertas e papel Master obtido pelos dados do cadastro (script SQL do banco novo)</td><td><span class="selo critico">Crítico</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P02</td><td>Estrutura do banco e políticas RLS fora do repositório</td><td><span class="selo alto">Alto</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P03</td><td>URL e chave pública do banco antigo como valor padrão no código-fonte</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P04</td><td>Divergência entre as permissões do menu e as das rotas</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P05</td><td>Atalho de login Master com senha padrão</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P06</td><td>Falha na consulta do papel tratada em silêncio</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P07</td><td>Pedido gravado em duas etapas sem transação e baixa de estoque feita no navegador</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P08</td><td>TypeScript com verificações desligadas, 64 usos do tipo <em>any</em> e ausência de testes automatizados</td><td><span class="selo medio">Médio</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                        <tr><td>P09</td><td>Arquivos sem utilização funcional identificada (App.css, Index.tsx, SQLPopup.tsx)</td><td><span class="selo baixo">Baixo</span></td><td><span class="selo ok">Corrigido</span></td></tr>
+                     </tbody>
+                  </table>
+               </div>
+            </section>
+
+            <section class="secao-termo" id="q4-loja">
+               <h3>Acesso do Cliente e Loja Virtual</h3>
+               <p>
+                  Até o semestre anterior, o Aether atendia apenas quem opera o negócio. Nesta etapa foi implementado o perfil Clientes, que estende o acesso ao consumidor final da Bibi Brigadeiros. A Loja virtual apresenta o catálogo organizado por categorias, onde o cliente busca produtos, consulta preço e descrição e adiciona itens ao carrinho para fazer o pedido.
+               </p>
+               <img src="imagens/loja-4-semestre.png" alt="Tela da Loja virtual do sistema AETHER">
+               <p class="legenda">
+                  Tela da Loja do sistema.
+               </p>
+               <p>
+                  O perfil dos usuários passou a ser armazenado em uma tabela específica, com acesso inicialmente pendente. Somente o Master altera permissões, por meio de uma Edge Function que verifica sua autorização, e as políticas de RLS foram revisadas para que cada cliente acesse apenas os dados permitidos.
+               </p>
+            </section>
+
+            <section class="secao-termo" id="q4-testes">
+               <h3>Testes de Qualidade e Validação</h3>
+               <p>
+                  Os testes de QA verificam a conexão com o banco, a autenticação, as permissões de cada perfil e o acesso às rotas, orientados por critérios de aceite. Os resultados são registrados para acompanhar as falhas encontradas, o comportamento esperado e o obtido.
+               </p>
+               <div class="tabela-wrapper">
+                  <table class="tabela-aether">
+                     <caption>Tabela 02 – Cenários de teste</caption>
+                     <thead>
+                        <tr><th>ID</th><th>Cenário</th><th>Resultado esperado</th><th>Resultado obtido</th><th>Status</th></tr>
+                     </thead>
+                     <tbody>
+                        <tr><td>T01</td><td>Login com credenciais válidas de cada perfil</td><td>Acesso às telas permitidas ao perfil</td><td>Acesso restrito e direcionado conforme o perfil autenticado</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T02</td><td>Login com senha incorreta</td><td>Mensagem de erro, sem acesso</td><td>Exibição de mensagem de erro de autenticação, acesso bloqueado</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T03</td><td>Cadastro de nova conta</td><td>Conta criada sem permissões, com redirecionamento à tela de acesso pendente</td><td>Usuário cadastrado sem privilégios elevados, redirecionado corretamente</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T04</td><td>Cadastro enviando o papel Master nos dados do cadastro</td><td>Papel ignorado; conta criada sem permissões</td><td>Atributo de privilégio ignorado pelo banco, conta criada como padrão</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T05</td><td>Funcionário digita a rota de Estoque na barra de endereço</td><td>Mensagem de acesso negado</td><td>Rota bloqueada com exibição de aviso de acesso restrito</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T06</td><td>Usuário sem permissão digita a rota da Loja</td><td>Comportamento conforme a regra definida para a rota</td><td>Acesso permitido ou negado estritamente conforme a regra de perfil</td><td><span class="selo revisar">A Revisar</span></td></tr>
+                        <tr><td>T07</td><td>Publicação sem as variáveis de ambiente do banco</td><td>Erro de configuração explícito, sem conexão ao banco antigo</td><td>Emissão de erro claro no console/interface, sem fallback inseguro</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T08</td><td>Falha na consulta do papel do usuário</td><td>Mensagem de erro, e não o redirecionamento silencioso</td><td>Exibição de mensagem informativa de erro em vez de redirecionamento mudo</td><td><span class="selo revisar">A Revisar</span></td></tr>
+                        <tr><td>T09</td><td>Cliente consulta, pela API, pedidos de outro Cliente</td><td>Nenhum pedido alheio retornado</td><td>Nenhum pedido de outro Cliente retornado pela API</td><td><span class="selo ok">Aprovado</span></td></tr>
+                        <tr><td>T10</td><td>Cliente tenta criar, editar ou excluir produto ou categoria</td><td>Operação negada pelo banco</td><td>Operação rejeitada</td><td><span class="selo ok">Aprovado</span></td></tr>
+                     </tbody>
+                  </table>
+               </div>
+               <p class="legenda">
+                  Dos 10 cenários, 8 foram aprovados e 2 (T06 e T08) seguem em revisão.
+               </p>
+            </section>
+
+            <section class="secao-termo" id="q4-kanban">
+               <h3>Kanban do Projeto</h3>
+               <p>
+                  Os problemas identificados e as melhorias necessárias foram organizados em um backlog no Kanban do Microsoft Planner, distribuído por prioridade. A organização prioriza a correção de falhas estruturais, de autenticação e de controle de acesso antes da inclusão de novas funcionalidades.
+               </p>
+               <img src="imagens/kanban-4-semestre.png" alt="Kanban do projeto AETHER no Microsoft Planner no quarto semestre">
+               <p class="legenda">
+                  Kanban do projeto no Microsoft Planner.
+               </p>
+            </section>
+
+            <section class="secao-termo" id="q4-conteudos">
+               <h3>Conteúdos Principais do PI</h3>
+               <p>
+                  Abaixo, os materiais desenvolvidos ao longo do Projeto Integrador. Orientador: Prof. Me. Leonardo Reitano.
+               </p>
+               <!-- Adicionar os arquivos nas pastas artigo/ e banner/ com estes nomes (ou ajustar o href) -->
+               <a style="font-weight: bold; margin-bottom: 20px;" class="button" href="artigo/Artigo_AETHER (Quarto Semestre).pdf" target="_blank">Acessar Artigo</a>
+               <a style="font-weight: bold;" class="button" href="banner/Banner (Quarto Semestre).pdf" target="_blank">Acessar Banner</a>
+            </section>
+
+        </section>
+
+        <section id="terceiro-termo">
+
+            <h2>
+               Terceiro Termo: Desenvolvimento do Projeto
+            </h2>
+           
+           <section id="kanban">
+               <h2 style="margin-top: -32px;">
+                  Kanban do Projeto
+               </h2>
+               <p>
+                  A abordagem foi mantida ao longo do projeto devido à sua eficiência no acompanhamento das entregas, na divisão de responsabilidades e na colaboração entre os integrantes.
+               </p>
+               <img src="imagens/kanbam-2.png" alt="Imagem do método Kanban utilizado no projeto neste semestre">
+               <p id="texto-abaixo-da-foto">
+                  Quadro Kanban utilizado no gerenciamento das atividades do projeto AETHER, permitindo organização, acompanhamento e distribuição das tarefas de desenvolvimento.
+               </p>
+           </section>
+
+           <section id="modelagem">
+               <h2>
+                  Remodelagem de Banco de Dados
+               </h2>
+               <p>
+                  A estrutura do banco de dados do AETHER foi replanejada para garantir integridade e eficiência no gerenciamento das informações da confeitaria.
+               </p>
+               <img src="imagens/der_-_aether.jpg" alt="Imagem da modelagem de dados do AETHER">
+               <p id="texto-abaixo-da-foto">
+                  Diagrama Entidade-Relacionamento (DER) do sistema AETHER, apresentando a estrutura do banco de dados e a integração entre estoque, pedidos, produtos, usuários e fichas técnicas.
+               </p>
+           </section>
+
+           
+
+            <section id="site">
+               <h2>
+                  Automação de Produção e Estoque Inteligente 
+               </h2>
+               <p>
+                  Foi desenvolvido um módulo de automação de produção baseado em Ficha Técnica, responsável por controlar insumos, custos e estoque dos produtos. Também foi criada a função “Produzir”, que automatiza a fabricação ao verificar a disponibilidade dos materiais, realizar a baixa das matérias-primas e atualizar automaticamente o estoque do produto final.
+               </p>
+               <img src="imagens/img-1-site-3.png" alt="Demonstração do site do sistema AETHER">
+               <p id="texto-abaixo-da-foto" style="margin-bottom: 30px;">
+                  Fluxo automatizado do processo de produção e baixa de estoque.
+               </p>
+           </section>
+
+           <section id="site">
+               <h2>
+                  Dashboard Analítico e Business Intelligence
+               </h2>
+               <p>
+                  O sistema passou a incorporar funcionalidades de BI, transformando dados operacionais em indicadores 
+                  estratégicos para apoio à tomada de decisões. O dashboard desenvolvido permite acompanhar métricas como 
+                  margem de lucro, custos de produção, movimentação de estoque e desempenho de vendas.
+                  </p>
+               <img src="imagens/img-2-site-3.jpg" alt="Demonstração do site do sistema AETHER">
+               <p id="texto-abaixo-da-foto" style="margin-bottom: 30px;">
+                  Dashboard analítico do sistema AETHER.
+               </p>
+               <a style="font-weight: bold;" class="button" href="https://appaether.vercel.app" target="_blank">Acesse o site</a>
+           </section>
+            
+           <section id="conteudos">
+               <h2>
+                  Conteúdos Principais do PI
+               </h2>
+               <p>
+                  Abaixo, os materiais desenvolvidos ao longo do Projeto Integrador.
+               </p>
+               <a style="font-weight: bold; margin-bottom: 20px;" class="button" href="artigo/Artigo_AETHER_V4 (Terceiro Semestre).pdf" target="_blank">Acessar Artigo</a>
+               <a style="font-weight: bold;" class="button" href="banner/Modelo Banner 10º Congresso de PI e 3º CONTEEX.pdf" target="_blank">Acessar Banner</a>
+           </section>
+
+        </section>
+
         <section id="segundo-termo">
             <h2 class="terceiro-termo">
                Segundo Termo: Desenvolvimento do Projeto
@@ -252,82 +437,6 @@
 
         </section>
 
-        <section id="terceiro-termo">
-
-            <h2>
-               Terceiro Termo: Próximos Passos do Projeto
-            </h2>
-           
-           <section id="kanban">
-               <h2 style="margin-top: -32px;">
-                  Kanban do Projeto
-               </h2>
-               <p>
-                  A abordagem foi mantida ao longo do projeto devido à sua eficiência no acompanhamento das entregas, na divisão de responsabilidades e na colaboração entre os integrantes.
-               </p>
-               <img src="imagens/kanbam-2.png" alt="Imagem do método Kanban utilizado no projeto neste semestre">
-               <p id="texto-abaixo-da-foto">
-                  Quadro Kanban utilizado no gerenciamento das atividades do projeto AETHER, permitindo organização, acompanhamento e distribuição das tarefas de desenvolvimento.
-               </p>
-           </section>
-
-           <section id="modelagem">
-               <h2>
-                  Remodelagem de Banco de Dados
-               </h2>
-               <p>
-                  A estrutura do banco de dados do AETHER foi replanejada para garantir integridade e eficiência no gerenciamento das informações da confeitaria.
-               </p>
-               <img src="imagens/der_-_aether.jpg" alt="Imagem da modelagem de dados do AETHER">
-               <p id="texto-abaixo-da-foto">
-                  Diagrama Entidade-Relacionamento (DER) do sistema AETHER, apresentando a estrutura do banco de dados e a integração entre estoque, pedidos, produtos, usuários e fichas técnicas.
-               </p>
-           </section>
-
-           
-
-            <section id="site">
-               <h2>
-                  Automação de Produção e Estoque Inteligente 
-               </h2>
-               <p>
-                  Foi desenvolvido um módulo de automação de produção baseado em Ficha Técnica, responsável por controlar insumos, custos e estoque dos produtos. Também foi criada a função “Produzir”, que automatiza a fabricação ao verificar a disponibilidade dos materiais, realizar a baixa das matérias-primas e atualizar automaticamente o estoque do produto final.
-               </p>
-               <img src="imagens/img-1-site-3.png" alt="Demonstração do site do sistema AETHER">
-               <p id="texto-abaixo-da-foto" style="margin-bottom: 30px;">
-                  Fluxo automatizado do processo de produção e baixa de estoque.
-               </p>
-           </section>
-
-           <section id="site">
-               <h2>
-                  Dashboard Analítico e Business Intelligence
-               </h2>
-               <p>
-                  O sistema passou a incorporar funcionalidades de BI, transformando dados operacionais em indicadores 
-                  estratégicos para apoio à tomada de decisões. O dashboard desenvolvido permite acompanhar métricas como 
-                  margem de lucro, custos de produção, movimentação de estoque e desempenho de vendas.
-                  </p>
-               <img src="imagens/img-2-site-3.jpg" alt="Demonstração do site do sistema AETHER">
-               <p id="texto-abaixo-da-foto" style="margin-bottom: 30px;">
-                  Dashboard analítico do sistema AETHER.
-               </p>
-               <a style="font-weight: bold;" class="button" href="https://appaether.vercel.app" target="_blank">Acesse o site</a>
-           </section>
-            
-           <section id="conteudos">
-               <h2>
-                  Conteúdos Principais do PI
-               </h2>
-               <p>
-                  Abaixo, os materiais desenvolvidos ao longo do Projeto Integrador.
-               </p>
-               <a style="font-weight: bold; margin-bottom: 20px;" class="button" href="artigo/Artigo_AETHER_V4 (Terceiro Semestre).pdf" target="_blank">Acessar Artigo</a>
-               <a style="font-weight: bold;" class="button" href="banner/Modelo Banner 10º Congresso de PI e 3º CONTEEX.pdf" target="_blank">Acessar Banner</a>
-           </section>
-           
-        </section>
-        
       </article>
     </main>
     <footer>
